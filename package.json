@@ -18,9 +18,13 @@
     "uint8arrays": "^1.1.0"
   },
   "dependencies": {
-    "ipfs": "^0.50.1",
+    "ipfs": "^0.52.3",
     "it-all": "^1.0.1",
-    "libp2p-webrtc-direct": "^0.4.0",
+    "libp2p": "^0.30.0",
+    "libp2p-bootstrap": "^0.12.1",
+    "libp2p-mplex": "^0.10.1",
+    "libp2p-noise": "^2.0.1",
+    "libp2p-webrtc-direct": "libp2p/js-libp2p-webrtc-direct#fix/add-remote-addr-on-listener-connection",
     "test-ipfs-example": "^2.0.3"
   },
   "browser": {
