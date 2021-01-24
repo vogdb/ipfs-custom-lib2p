@@ -35,11 +35,14 @@ async function main () {
   })
   console.log(`ipfs node's config: ${JSON.stringify(await node.id())}`)
 
-  setInterval(async () => {
+  const interval = setInterval(async () => {
     try {
       const peers = await node.swarm.peers()
-      if (peers.length > 0)
+      if (peers.length > 0) {
         console.log(`The node now has ${peers.length} peers.`)
+        console.log(`peers: ${JSON.stringify(peers, null, 2)}`)
+        clearInterval(interval)
+      }
     } catch (err) {
       console.log('An error occurred trying to check out peers:', err)
     }

@@ -31,21 +31,24 @@ const createLibp2p = (opts, bootstrappers) => {
 async function main () {
   const node = await IPFS.create({
     repo: 'ipfs-' + Math.random(),
-    lib2p: createLibp2p,
+    libp2p: createLibp2p,
     // How to correctly set bootstrappers?
     // libp2p: (...args) => createLibp2p(...args, ['/ip4/127.0.0.1/tcp/9090/http/p2p-webrtc-direct/p2p/QmYdb3fr52UxH6evf9UnKY8YvvRrnskt9ULKuS2n69THz9']),
     // Bootstrap: ['/ip4/127.0.0.1/tcp/9090/http/p2p-webrtc-direct/p2p/QmYdb3fr52UxH6evf9UnKY8YvvRrnskt9ULKuS2n69THz9']
   })
 
-  setInterval(async () => {
+  const interval = setInterval(async () => {
     try {
       const peers = await node.swarm.peers()
-      console.log(`The node now has ${peers.length} peers.`)
-      console.log(`peers: ${JSON.stringify(peers, null, 2)}`)
+      if (peers.length > 0) {
+        console.log(`The node now has ${peers.length} peers.`)
+        console.log(`peers: ${JSON.stringify(peers, null, 2)}`)
+        clearInterval(interval)
+      }
     } catch (err) {
-      console.log('An error occurred trying to check our peers:', err)
+      console.log('An error occurred trying to check out peers:', err)
     }
-  }, 30000)
+  }, 2000)
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
