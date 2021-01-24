@@ -5,7 +5,7 @@ const Mplex = require('libp2p-mplex')
 const {NOISE} = require('libp2p-noise')
 const Bootstrap = require('libp2p-bootstrap')
 
-const createLibp2p = (opts, bootstrappers) => {
+const libp2pBundle = (opts) => {
   const peerId = opts.peerId
 
   return new Libp2p({
@@ -20,7 +20,7 @@ const createLibp2p = (opts, bootstrappers) => {
       peerDiscovery: {
         [Bootstrap.tag]: {
           enabled: true,
-          list: ['/ip4/127.0.0.1/tcp/9090/http/p2p-webrtc-direct/p2p/QmRs9AvhnGUSw2mEFR39Z7UAxnX8wXMo1y8vUSZJwtSfSn']
+          list: ['/ip4/127.0.0.1/tcp/9090/http/p2p-webrtc-direct/p2p/QmPpMVUUiiyKysMDnDGeLCbTE8By6y9CkfbnKGqCRMjfak']
         }
       }
     }
@@ -31,7 +31,7 @@ const createLibp2p = (opts, bootstrappers) => {
 async function main () {
   const node = await IPFS.create({
     repo: 'ipfs-' + Math.random(),
-    libp2p: createLibp2p,
+    libp2p: libp2pBundle
     // How to correctly set bootstrappers?
     // libp2p: (...args) => createLibp2p(...args, ['/ip4/127.0.0.1/tcp/9090/http/p2p-webrtc-direct/p2p/QmYdb3fr52UxH6evf9UnKY8YvvRrnskt9ULKuS2n69THz9']),
     // Bootstrap: ['/ip4/127.0.0.1/tcp/9090/http/p2p-webrtc-direct/p2p/QmYdb3fr52UxH6evf9UnKY8YvvRrnskt9ULKuS2n69THz9']
